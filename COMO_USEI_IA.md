@@ -1,9 +1,9 @@
-### Desafio 1 - FELLOWSHIP AI-DRIVEN ENGINEERING
+# Desafio 1 - FELLOWSHIP AI-DRIVEN ENGINEERING
 
 ## Sugestões aceitas
 
 
-## Sugestõa rejeitadas
+## Sugestões rejeitadas
 
 
 ## Falhas e retrabalho
