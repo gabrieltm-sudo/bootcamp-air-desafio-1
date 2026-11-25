@@ -1,2 +1,5 @@
 src/brutos/
+__pycache__/
+.pytest_cache/
+.venv
 .env*
