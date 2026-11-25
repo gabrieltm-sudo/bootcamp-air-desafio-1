@@ -44,6 +44,11 @@ desafio-1-bootcampAIR/
    source .venv/bin/activate
    pip install -r requirements.txt
    ```
+   Ou, se preferir, use o `Makefile`:
+   ```bash
+    make venv
+    source .venv/bin/activate
+   ```
 3. Crie um .env na raiz do projeto com as variáveis de ambiente necessárias para conexão com o banco:
     ```env
     DB_HOST=localhost
