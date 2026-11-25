@@ -23,13 +23,13 @@ def extrair_rota(rota, page_size=200):
             )
         except requests.exceptions.ConnectionError:
             print(f"[ ERRO ] Não foi possível conectar à API na rota /{rota_limpa}")
-            break
+            raise 
         except requests.exceptions.Timeout:
             print(f"[ ERRO ] Tempo limite excedido na rota /{rota_limpa}, pagina {pagina}")
-            break
+            raise
         except requests.exceptions.RequestException as erro:
             print(f"[ ERRO ] Falha na requisição da rota /{rota_limpa}: {erro}")
-            break
+            raise
 
         match resposta.status_code:
             case 200:
@@ -37,7 +37,7 @@ def extrair_rota(rota, page_size=200):
                     dados = resposta.json()
                 except requests.exceptions.JSONDecodeError:
                     print(f"[ ERRO ] Resposta inválida na rota /{rota_limpa}, pagina {pagina}")
-                    break
+                    raise
 
                 registros.extend(dados.get("items", []))
                 total_pages = dados.get("total_pages", total_pages)
@@ -45,10 +45,10 @@ def extrair_rota(rota, page_size=200):
                 pagina+=1
             case 404:
                 print(f"[ ERRO ] Rota ou página inexistente (/{rota_limpa}, pagina {pagina})")
-                break
+                resposta.raise_for_status()
             case _:
                 print(f"[ ERRO ] Status HTTP inesperado {resposta.status_code} na rota /{rota_limpa}")
-                break
+                resposta.raise_for_status()
 
     return registros, paginas_lidas
 

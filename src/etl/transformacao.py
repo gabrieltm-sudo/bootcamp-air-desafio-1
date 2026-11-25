@@ -2,14 +2,12 @@ from datetime import datetime
 from decimal import Decimal
 
 
-# --- Funções auxiliares (regras A3, A4, A5 e A6) ---
+# --- Funções auxiliares (regras A2, A3, A4, A5 e A6) ---
 
 def tratar_email(email):
     """
-    A1: mantém None se o e-mail vier ausente/nulo, ou retorna o próprio e-mail.
+    A1: Mantém o e-mail como None quando ele não estiver informado.
     """
-    # Se email for None (ou vazio, se quiser cobrir ""), retornar None
-    # Caso contrário, retornar email
     if email is None:
         return None
     else:
@@ -78,7 +76,7 @@ def calcular_valor_itens(itens):
     for item in itens:
         preco = normalizar_valor(item["preco_unitario"])
         total += item["quantidade"] * preco
-
+    
     return total
 
 def eh_divergente(valor_total, valor_itens):
@@ -94,9 +92,8 @@ def eh_divergente(valor_total, valor_itens):
 
 def transf_clientes(clientes_brutos):
     """
-    Aplica armadilhas A1 e A2.
-    Conta quantidade de e-mails nulos e estados corrigidos
-    Retorna duas listas: clientes_limpos e contadores_clientes
+    Trata os dados dos clientes e contabiliza e-mails nulos e estados corrigidos.
+    Retorna os clientes tratados e os contadores.
     """
     contadores = {"emails_nulos": 0, "estados_corrigidos": 0}
     clientes_limpos = []
@@ -146,26 +143,12 @@ def transf_pedidos(pedidos_brutos):
         if divergente:
             contadores["divergentes"] += 1
 
-        dados_pedido = {
-            "id": i["id"],
-            "cliente_id": i["cliente_id"],
-            "data_pedido": data_pedido,
-            "status": i["status"],
-            "valor_total": valor_total,
-            "valor_itens": valor_itens,
-            "divergente": divergente
-        }
+        dados_pedido = {"id": i["id"], "cliente_id": i["cliente_id"], "data_pedido": data_pedido, "status": i["status"], "valor_total": valor_total, "valor_itens": valor_itens, "divergente": divergente}
         pedidos_limpos.append(dados_pedido)
 
         linha = 1
         for item in i["itens"]:
-            dados_item = {
-                "pedido_id": i["id"],
-                "linha": linha,
-                "produto_id": item["produto_id"],
-                "quantidade": item["quantidade"],
-                "preco_unitario": normalizar_valor(item["preco_unitario"])
-            }
+            dados_item = {"pedido_id": i["id"], "linha": linha, "produto_id": item["produto_id"], "quantidade": item["quantidade"], "preco_unitario": normalizar_valor(item["preco_unitario"] )}
             itens_limpos.append(dados_item)
             linha += 1
 

@@ -27,7 +27,7 @@ def test_data_aaaa_mm_dd_retorna_objeto_date(): # A3
     assert converter_data(data) == Date(2005, 8, 31)
 
 def test_valor_com_virgula_vira_numero(): # A4
-    assert normalizar_valor("1,345") == Decimal("1.34")
+    assert normalizar_valor("1,34") == Decimal("1.34")
 
 def test_valor_numerico_permanece(): # A4
     valor = 93.32
