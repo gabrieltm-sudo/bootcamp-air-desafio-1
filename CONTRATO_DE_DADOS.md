@@ -27,7 +27,7 @@
 | `status` | `TEXT` | Não | Status do pedido |
 | `valor_total` | `NUMERIC(12, 2)` | Não | Valor total do pedido - Chega como número ou texto com vírgula (ex.: `"125,84"`); normalizar para número com duas casas decimais |
 | `valor_itens` | `NUMERIC(12, 2)` | Não | Valor total de itens do pedido - Calculado no ETL pela soma de `quantidade * preco_unitario` dos itens; pode divergir do `valor_total` |
-| `divergente` | `BOOLEAN` | Não | Padrão `FALSE` (`DEFAULT FALSE`); indica se houve divergência entre `valor_total` e `valor_itens` (`true` se diferentes, `false` caso contrário) |
+| `divergente` | `BOOLEAN` | Não | Padrão `FALSE` (`DEFAULT FALSE`); indica se houve divergência entre `valor_total` e `valor_itens` (`true` se diferentes, `false` caso contrário); É considerado divergente se a diferença for maior que 0.01 (1 centavo) |
 
 ### Tabela `itens_pedido`
 - **Origem:** API `GET /pedidos` (JSON bruto em `src/brutos/pedidos.json`)
